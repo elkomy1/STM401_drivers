@@ -30,7 +30,6 @@ void LED_Init(void);
 
 LED_enuErrorState_t led_set_state(u8 led,u32 led_state);
 
+LED_enuErrorState_t led_toggle(u8 led);
 
-
-LED_enuErrorState_t led_toggle_state(u8 led);
 #endif

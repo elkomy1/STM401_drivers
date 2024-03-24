@@ -1,5 +1,5 @@
 #include "LED.h"
-#include "E:\ARM_DRIVERS\MCAL\GPIO_DRIVER\GPIO.h"
+#include "GPIO.h"
 
 #include "LED_CONFIG.h"
 
@@ -20,7 +20,7 @@ void LED_Init(void){
         led.pin_num=leds[i].pin_number;
 
                 GPIO_INIT(&led);
-                GPIO_Set_PinValue(leds[i].port,leds[i].pin_number,leds[i].led_state);
+                GPIO_Set_PinValue(leds[i].port,leds[i].pin_number,leds[i].default_state);
 
    }
 
@@ -47,13 +47,33 @@ LED_enuErrorState_t led_set_state(u8 led,u32 led_state){
                 u32 pin_state=0;
 
                 pin_state=leds[led].connection_type^led_state;
+                GPIO_Set_PinValue(leds[led].port,leds[led].pin_number,pin_state);
+
                 error_state=LED_OK;
 
+
         }
+
+
 return error_state;
 
 }
+LED_enuErrorState_t led_toggle(u8 led) {
+    LED_enuErrorState_t error_state;
 
+    if (led > num_of_leds) {
+        error_state = LED_NOK;
+    } else {
+        // Toggle the LED state
+        u32 pin_state = GPIO_Get_PinValue(leds[led].port, leds[led].pin_number);
+        pin_state ^= 1; // Toggle the state by XOR with 1 (assuming 1 corresponds to the GPIO pin high state)
+        GPIO_Set_PinValue(leds[led].port, leds[led].pin_number, pin_state);
+
+        error_state = LED_OK;
+    }
+
+    return error_state;
+}
 
 
 

@@ -1,10 +1,10 @@
     #ifndef RCC_H_
     #define RCC_H_
-    #include "E:\ARM_DRIVERS\lib\STD_TYPES.h"
-    #include "E:\ARM_DRIVERS\lib\BIT_MATH.h"
+    #include "STD_TYPES.h"
+    #include "BIT_MATH.h"
     typedef enum{
-        Ok,
-        Nok
+        RCC_Ok,
+        RCC_Nok,
     }RCC_ErrorStatus_t;
 
     typedef enum

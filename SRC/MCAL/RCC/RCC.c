@@ -1,7 +1,7 @@
-	#include "RCC.h"
+		#include "RCC.h"
 
-	#include "E:\ARM_DRIVERS\lib\STD_TYPES.h"
-	#include "E:\ARM_DRIVERS\lib\BIT_MATH.h"
+	#include "STD_TYPES.h"
+	#include "BIT_MATH.h"
 	
 	
 	
@@ -58,7 +58,7 @@
 
 					 u32 reg_var;
 					 u32 time_out=0;
-					 RCC_ErrorStatus_t loc_error = Ok;
+					 RCC_ErrorStatus_t loc_error = RCC_Ok;
 					 
 					 switch(clocksystem){
 
@@ -74,10 +74,10 @@
 							 }
 							 
 							 if (time_out >= 600) {
-								 loc_error = Nok;
+								 loc_error = RCC_Nok;
 							 }
 							 } else {
-							 loc_error = Nok;
+							 loc_error = RCC_Nok;
 						 }
 						 break;
 
@@ -93,10 +93,10 @@
 							 }
 							 
 							 if (time_out >= 600) {
-								 loc_error = Nok;
+								 loc_error = RCC_Nok;
 							 }
 							 } else {
-							 loc_error = Nok;
+							 loc_error = RCC_Nok;
 						 }
 						 break;
 
@@ -112,15 +112,15 @@
 							 }
 							 
 							 if (time_out >= 600) {
-								 loc_error = Nok;
+								 loc_error = RCC_Nok;
 							 }
 							 } else {
-							 loc_error = Nok;
+							 loc_error = RCC_Nok;
 						 }
 						 break;
 
 						 default:
-						 loc_error = Nok;
+						 loc_error = RCC_Nok;
 						 break;
 					 }
 					 return loc_error;
@@ -129,7 +129,7 @@
 
 				//////////////////////////////////////////*function to enable and disable the clocks*///////////////////////////////////////////////////////////////////////////////////////
 				RCC_ErrorStatus_t RCC_ControlClk(u8 ClockSystem, u8 clock_status) {
-					RCC_ErrorStatus_t loc_error = Ok;
+					RCC_ErrorStatus_t loc_error = RCC_Ok;
 					u32 time_out = 0;
 
 					switch (ClockSystem) {
@@ -143,7 +143,7 @@
 								time_out++;
 							}
 							if (time_out >= 600) {
-								loc_error = Nok;
+								loc_error = RCC_Nok;
 							}
 						}
 						break;
@@ -158,7 +158,7 @@
 								time_out++;
 							}
 							if (time_out >= 600) {
-								loc_error = Nok;
+								loc_error = RCC_Nok;
 							}
 						}
 						break;
@@ -173,13 +173,13 @@
 								time_out++;
 							}
 							if (time_out >= 600) {
-								loc_error = Nok;
+								loc_error = RCC_Nok;
 							}
 						}
 						break;
 
 						default:
-						loc_error = Nok;
+						loc_error = RCC_Nok;
 						break;
 					}
 					return loc_error;
@@ -191,7 +191,7 @@
 
 				/*======================================================*/
 				RCC_ErrorStatus_t  RCC_CheckReady(u8 ClockSystem, u8* ReadyStatus){
-				RCC_ErrorStatus_t loc_error=Ok;
+				RCC_ErrorStatus_t loc_error=RCC_Ok;
 				switch(ClockSystem){
 				case RCC_HSI:
 				if((RCC->CR & HSI_ready)==HSI_ready){
@@ -227,7 +227,7 @@
 				break;
 
 				default:
-				loc_error=Nok;
+				loc_error=RCC_Nok;
 				break;
 				}
 				return loc_error;
@@ -240,7 +240,7 @@
 				RCC_ErrorStatus_t RCC_PLL_SRC(u32 clc_src){
 
 
-					RCC_ErrorStatus_t loc_error=Ok;
+					RCC_ErrorStatus_t loc_error=RCC_Ok;
 					u32 loc_var;
 					switch(clc_src){
 
@@ -253,7 +253,7 @@
 						 loc_var &= PLL_HSI;
 						 break;
 						 default:
-						 loc_error=Nok;
+						 loc_error=RCC_Nok;
 
 					}
 					return loc_error;
@@ -266,17 +266,17 @@
 					u32 loc_var;
 
 					if(PLL_M<2 || PLL_M>63){
-						loc_error=Nok;
+						loc_error=RCC_Nok;
 					}
 					else if(PLL_N<192 || PLL_N>432){
 
 						loc_error=Nok;
 					}
 					else if(PLL_Q<2 || PLL_Q>15){
-						loc_error=Nok;
+						loc_error=RCC_Nok;
 					}
 					  else if((PLL_P != 2) && (PLL_P != 4) && (PLL_P != 6) && (PLL_P != 8)){
-						loc_error=Nok;
+						loc_error=RCC_Nok;
 					}
 					else { 
 						/*CONFIGURE PLL_M*/
@@ -322,7 +322,7 @@
 
 				RCC_ErrorStatus_t  RCC_ControlPrescalerAHB(u32 AHBPrescaler){
 
-				RCC_ErrorStatus_t loc_error=Ok;
+				RCC_ErrorStatus_t loc_error=RCC_Ok;
 				u32 loc_var;
 				switch(AHBPrescaler){
 				case AHB_0:
@@ -385,7 +385,7 @@
 				RCC->CFGR=loc_var;
 				break;
 				default:
-				loc_error=Nok;
+				loc_error=RCC_Nok;
 				break;
 				}
 				return loc_error;
@@ -394,7 +394,7 @@
 
 				RCC_ErrorStatus_t  RCC_ControlPrescalerAPB1 (u32 APB1Prescaler){
 
-				RCC_ErrorStatus_t loc_error=Ok;
+				RCC_ErrorStatus_t loc_error=RCC_Ok;
 				u32 loc_var;
 				switch(APB1Prescaler){
 
@@ -439,7 +439,7 @@
 
 
 					default:
-					loc_error=Nok;
+					loc_error=RCC_Nok;
 				break;
 				}
 				return loc_error;
@@ -448,7 +448,7 @@
 				RCC_ErrorStatus_t  RCC_ControlPrescalerAPB2  (u32 APB2Prescaler){
 
 
-				RCC_ErrorStatus_t loc_error=Ok;
+				RCC_ErrorStatus_t loc_error=RCC_Ok;
 				u32 loc_var;
 
 				switch(APB2Prescaler){
@@ -506,7 +506,7 @@
 
 				RCC_ErrorStatus_t  RCC_enuEnablePreipheral(u32 PeripheralBus, u32 Peripheral){
 
-					RCC_ErrorStatus_t loc_error=Ok;
+					RCC_ErrorStatus_t loc_error=RCC_Ok;
 					
 					switch(PeripheralBus){
 						case AHB1_BUS:
@@ -524,15 +524,16 @@
 						break;
 						case APB2_BUS:
 						RCC->APB2ENR |= (1<<Peripheral);
+						break;
 						default:
-						loc_error=Nok;
+						loc_error=RCC_Nok;
 
 					}
 						return loc_error;
 				}
 				RCC_ErrorStatus_t  RCC_enuDisablePreipheral(u32 PeripheralBus, u32 Peripheral){
 
-				  RCC_ErrorStatus_t loc_error=Ok;
+				  RCC_ErrorStatus_t loc_error=RCC_Ok;
 
 					 switch(PeripheralBus){
 						case AHB1_BUS:
@@ -550,8 +551,9 @@
 						break;
 						case APB2_BUS:
 						RCC->APB2ENR &= (~(1<<Peripheral));
+						break;
 						default:
-						loc_error=Nok;
+						loc_error=RCC_Nok;
 
 					}
 						return loc_error;
@@ -559,8 +561,3 @@
 
 
 				}
-
-
-
-
-				 
